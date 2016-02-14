@@ -1,0 +1,26 @@
+{
+  "name": "wb-web",
+  "version": "1.0.0",
+  "description": "web interface for waybot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dbg": "DEBUG=wb* nodemon index.js",
+    "build": "browserify src/index.js > public/bundle.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "johnelliott",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "ecstatic": "^1.4.0",
+    "pouchdb": "^5.2.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "watchify": "^3.7.0"
+  }
+}
