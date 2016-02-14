@@ -5,21 +5,29 @@ var remoteCouch = 'http://localhost:5984/data';
 
 var view = document.getElementById('app');
 
+function logReduxState () {
+  console.log('Redux state =============');
+  console.log(JSON.stringify(store.getState()));
+  console.log('============= /Redux state');
+}
 /*
  * Redux action creators
  *
  * Use string literals for action types, no constants for actions
  * Use like: dispatch(addhit(hit));
  */
+// TODO consider Redux standard action: https://github.com/acdlite/flux-standard-action for later
 function addHit (hit) {
+  //console.log('adding hit', hit);
   return {
     type: 'ADD_HIT',
-    hit // ES6 shorthand
+    hit: hit
   };
 }
 
 var initialState = {
-    hits: []
+    //TODO why does this need an empty object in it to work in the reducer?
+    hits: [{}]
 };
 
 // Redux reducer
@@ -29,16 +37,23 @@ function counterApp (state, action) {
     }
     switch (action.type) {
         case 'ADD_HIT':
-            return Object.assign({}, state, {
-                hits: action.hit
+            var newState = Object.assign({}, state, {
+              // probably adding dupe ids or revs...
+              // TODO find out why empty array is needed to preseve types
+              hits: state.hits.concat(action.hit)
             });
+            console.log('newState' + newState);
+            return newState;
         default:
             return state;
     }
+    //logReduxState();
 }
 
-// Redux store
-var store = Redux.createStore(counterApp);
+// Create Redux store
+var store = Redux.createStore(counterApp, initialState);
+
+// Subscribe to events and update DOM
 store.subscribe(function reduxUIUpdate () {
     var row = document.createElement('li');
     row.innerHTML = JSON.stringify(store.getState());
