@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Redux = require('redux');
 var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
+var Sparkline = require('sparklines');
 var remoteCouch = 'http://localhost:5984/data';
 
 var view = document.getElementById('app');
@@ -11,8 +12,9 @@ var view = document.getElementById('app');
  * React ================================================
  */
 const render = () => {
+    logReduxState();
     ReactDOM.render(
-        <Counter hits={store.getState()} />,
+        <Counter data={store.getState()} />,
         document.getElementById('root')
     );
 };
@@ -24,13 +26,30 @@ const render = () => {
 /* Counter
  * props: value <number>
  */
-const Counter = ({ hits }) => (
+const Counter = ({ data }) => (
     <div>
         <p className="subtitle">Counter component</p>
-        <p>Hits count: {JSON.stringify(hits)}</p>
+        <p>Hits count: {data.hits.length}</p>
+        <p>Line: <Line data={data.hits} /></p>
     </div>
 );
-
+/*
+ * Sparkline
+ * TODO make this work as part of react rendering instead of outside..
+ */
+const Line = React.createClass({
+  render: function() {
+    var lineData = this.props.data.map(function(point) {
+      return point.speed;
+    });
+    console.log('lineData ' + lineData);
+    var line = new Sparkline(view, {width: 200});
+    line.draw(lineData);
+    return (
+      <span id="line">{lineData.toString()}</span>
+    );
+  }
+});
 /*
  * Redux ================================================
  */
@@ -70,7 +89,6 @@ function counterApp (state, action) {
         default:
             return state;
     }
-    logReduxState();
 }
 
 // Create Redux store
@@ -100,6 +118,7 @@ function syncError (err) {
 }
 
 // View stuff
+// TODO, call only once instead of for every hit, then have redux process the state changes appropriately
 function updateUI (data) {
     data.forEach(function(doc) {
         // fetch from pouch
