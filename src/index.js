@@ -1,9 +1,15 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
 var Redux = require('redux');
 var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
 var remoteCouch = 'http://localhost:5984/data';
 
 var view = document.getElementById('app');
+ReactDOM.render(
+    <h1>Hello, world!</h1>,
+    document.getElementById('app')
+);
 
 function logReduxState () {
   console.log('Redux state =============');
@@ -61,45 +67,53 @@ store.subscribe(function reduxUIUpdate () {
 });
 
 
+/*
+ * React components
+ *
+ *
+ */
 
-// PouchDB stuff
-db.changes({
-    since: 'now',
-    live: true
-}).on('change', fetchDocs);
 
-// Local data store methods
-function sync () {
-    console.log('syncing');
-    var opts = {live: true};
-    //db.replicate.to(remoteCouch, opts, syncError);
-    db.replicate.from(remoteCouch, opts, syncError);
-}
-function fetchDocs() {
-    db.allDocs({include_docs: false, descending: true}, function(err, doc) {
-        updateUI(doc.rows);
-    });
-}
-//TODO kill this function and change to console.error or something
-function syncError (err) {
-    console.log('syncing error ' + err);
-}
 
-// View stuff
-function updateUI (data) {
-    data.forEach(function(doc) {
-        // fetch from pouch
-        db.get(doc.id, sendToRedux);
-    });
-}
 
-function sendToRedux (err, result) {
-    if (err) {
-        console.error(err);
-    }
-    store.dispatch(addHit(result));
-}
-
-// Init
-sync();
-fetchDocs();
+//// PouchDB stuff
+//db.changes({
+///    since: 'now',
+//    live: true
+//}).on('change', fetchDocs);
+//
+//// Local data store methods
+//function sync () {
+//    console.log('syncing');
+//    var opts = {live: true};
+//    //db.replicate.to(remoteCouch, opts, syncError);
+//    db.replicate.from(remoteCouch, opts, syncError);
+//}
+//function fetchDocs() {
+//    db.allDocs({include_docs: false, descending: true}, function(err, doc) {
+//        updateUI(doc.rows);
+//    });
+//}
+////TODO kill this function and change to console.error or something
+//function syncError (err) {
+//    console.log('syncing error ' + err);
+//}
+//
+//// View stuff
+//function updateUI (data) {
+//    data.forEach(function(doc) {
+//        // fetch from pouch
+//        db.get(doc.id, sendToRedux);
+//    });
+//}
+//
+//function sendToRedux (err, result) {
+//    if (err) {
+//        console.error(err);
+//    }
+//    store.dispatch(addHit(result));
+//}
+//
+//// Init
+//sync();
+//fetchDocs();
