@@ -27,7 +27,7 @@ const render = () => {
 const Counter = ({ hits }) => (
     <div>
         <p className="subtitle">Counter component</p>
-        <p>Hits: {hits.hits}</p>
+        <p>Hits count: {JSON.stringify(hits)}</p>
     </div>
 );
 
@@ -45,15 +45,16 @@ function logReduxState () {
  * Use like: dispatch(addhit(hit));
  */
 // TODO consider Redux standard action: https://github.com/acdlite/flux-standard-action for later
-function addHit () {
+function addHit (hit) {
   return {
-    type: 'ADD_HIT'
+    type: 'ADD_HIT',
+    hit
   };
 }
 
-var initialState = {
+const initialState = {
     //TODO why does this need an empty object in it to work in the reducer?
-    hits: 0
+    hits: []
 };
 
 // Redux reducer
@@ -63,15 +64,13 @@ function counterApp (state, action) {
     }
     switch (action.type) {
         case 'ADD_HIT':
-            var newState = {
-                hits: state.hits + 1
-            };
-            logReduxState();
-            return newState;
+            return Object.assign({}, state, {
+                 hits: state.hits.concat([action.hit])
+            });
         default:
             return state;
     }
-    //logReduxState();
+    logReduxState();
 }
 
 // Create Redux store
@@ -112,7 +111,7 @@ function sendToRedux (err, result) {
     if (err) {
         console.error(err);
     }
-    store.dispatch(addHit());
+    store.dispatch(addHit(result));
 }
 
 
