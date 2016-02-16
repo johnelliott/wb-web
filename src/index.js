@@ -5,6 +5,7 @@ var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
 var Sparkline = require('sparklines');
 var remoteCouch = 'http://localhost:5984/data';
+var freeze = require('deep-freeze');
 
 /*
  * React ================================================
@@ -40,10 +41,10 @@ const Line = React.createClass({
     var lineData = props.data.map(function(point) {
       return point.speed;
     });
-    console.log('lineData ' + lineData);
+    //console.log('lineData ' + lineData);
     var node = ReactDOM.findDOMNode(this);
     var line = new Sparkline(node, {width: 200, height: 50});
-    console.log('line', line);
+    //console.log('line', line);
     line.draw(lineData);
   },
   componentDidMount: function() {
@@ -53,7 +54,7 @@ const Line = React.createClass({
     return false;
   },
   componentWillReceiveProps: function(nextProps) {
-    console.log('i will get props', nextProps);
+    //console.log('i will get props', nextProps);
     if (this.props.data !== nextProps.data) {
       this.draw(nextProps);
     }
@@ -95,13 +96,33 @@ function counterApp (state, action) {
     }
     switch (action.type) {
         case 'ADD_HIT':
+            //            console.log('action hit', action.hit);
+            //            // guard against initial state
+            //            if (!state.hits.length) {
+            //              return Object.assign({}, state, {
+            //                hits: state.hits.concat([action.hit])
+            //              });
+            //            }
+            //            var newHit = false;
+            //            var updatedHits = state.hits.map(function(hit) {
+            //              console.log(' hit', hit);
+            //              if (hit._id === action.hit._id) {
+            //                return hit;
+            //              }
+            //              console.log(action.hit);
+            //              return action.hit;
+            //            });
+            //            console.log('updatedHits', updatedHits);
             return Object.assign({}, state, {
-                 hits: state.hits.concat([action.hit])
+              hits: state.hits.concat([action.hit])
             });
         default:
             return state;
     }
 }
+
+
+// TESTS
 
 // Create Redux store
 var store = Redux.createStore(counterApp, initialState);

@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "^2.2.0",
+    "deep-freeze": "0.0.1",
     "ecstatic": "^1.4.0",
     "pouchdb": "^5.2.1",
     "react": "^0.14.7",
