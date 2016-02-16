@@ -6,8 +6,6 @@ var db = new PouchDB('hits');
 var Sparkline = require('sparklines');
 var remoteCouch = 'http://localhost:5984/data';
 
-var view = document.getElementById('app');
-
 /*
  * React ================================================
  */
@@ -38,16 +36,30 @@ const Counter = ({ data }) => (
  * TODO make this work as part of react rendering instead of outside..
  */
 const Line = React.createClass({
-  render: function() {
-    var lineData = this.props.data.map(function(point) {
+   draw: function(props) {
+    var lineData = props.data.map(function(point) {
       return point.speed;
     });
     console.log('lineData ' + lineData);
-    var line = new Sparkline(view, {width: 200});
+    var node = ReactDOM.findDOMNode(this);
+    var line = new Sparkline(node, {width: 200, height: 50});
+    console.log('line', line);
     line.draw(lineData);
-    return (
-      <span id="line">{lineData.toString()}</span>
-    );
+  },
+  componentDidMount: function() {
+    this.draw(this.props);
+  },
+  shouldComponentUpdate: function () {
+    return false;
+  },
+  componentWillReceiveProps: function(nextProps) {
+    console.log('i will get props', nextProps);
+    if (this.props.data !== nextProps.data) {
+      this.draw(nextProps);
+    }
+  },
+  render: function() {
+    return ( <span></span> );
   }
 });
 /*
