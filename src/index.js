@@ -27,9 +27,15 @@ const render = () => {
  */
 const Counter = ({ data }) => (
     <div>
-        <p className="subtitle">Counter component</p>
-        <p>Hits count: {data.hits.length}</p>
-        <p>Line: <Line data={data.hits} /></p>
+        <p className="subtitle">Counter 1</p>
+        <p>The speed <em>(mph)</em> of {data.hits.length} vehicles <Line data={data.hits} /> averages {
+          data.hits.map(function(h) {
+            return h.speed;
+          })
+          .reduce(function(a, b) {
+            return a + b;
+          },0) / data.hits.length
+        }.</p>
     </div>
 );
 /*
@@ -43,8 +49,8 @@ const Line = React.createClass({
     });
     //console.log('lineData ' + lineData);
     var node = ReactDOM.findDOMNode(this);
-    var line = new Sparkline(node, {width: 200, height: 50});
-    //console.log('line', line);
+    var line = new Sparkline(node, {width: 100, height: 20});
+    console.log('line', line);
     line.draw(lineData);
   },
   componentDidMount: function() {
