@@ -33,7 +33,7 @@ function counterApp (state, action) {
     switch (action.type) {
         case 'ADD_HIT':
             var collisions = state.hits.map(function (h) {
-              console.log('h', h);
+              //console.log('h', h);
               return h._id === action.hit._id;
             });
             var collided = collisions.reduce(function (prev, curr) {
@@ -57,3 +57,6 @@ var store = Redux.createStore(counterApp, initialState);
 exports.logger = logReduxState;
 exports.addHit = addHit;
 exports.store = store;
+// Used in test
+// TODO don't do this... maybe with actions module....
+exports.reducer = counterApp;
