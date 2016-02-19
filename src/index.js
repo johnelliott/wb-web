@@ -5,13 +5,13 @@ var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
 var Sparkline = require('sparklines');
 var remoteCouch = 'http://localhost:5984/data';
-var freeze = require('deep-freeze');
+//var freeze = require('deep-freeze');
 
 /*
  * React ================================================
  */
 const render = () => {
-    state.logger();
+    //state.logger();
     ReactDOM.render(
         <Counter data={state.store.getState()} />,
         document.getElementById('root')
@@ -80,17 +80,19 @@ db.changes({
 function sync () {
     console.log('syncing');
     var opts = {live: true};
-    //db.replicate.to(remoteCouch, opts, syncError);
-    db.replicate.from(remoteCouch, opts, syncError);
+    //db.replicate.to(remoteCouch, opts, syncErrorLogger);
+    db.replicate.from(remoteCouch, opts, function syncErrorLogger (err) {
+          console.log('syncing error ' + err);
+    });
 }
 function fetchDocs() {
     db.allDocs({include_docs: false, descending: true}, function(err, doc) {
+        if (err) {
+          console.error(err);
+          return err;
+        }
         updateUI(doc.rows);
     });
-}
-//TODO kill this function and change to console.error or something
-function syncError (err) {
-    console.log('syncing error ' + err);
 }
 
 // View stuff
@@ -107,7 +109,10 @@ function sendToRedux (err, result) {
     if (err) {
         console.error(err);
     }
-    state.store.dispatch(state.addHit(result));
+    //TODO this is just temp because safari sucks...
+    if (!result.hit) {
+      state.store.dispatch(state.addHit(result));
+    }
 }
 
 

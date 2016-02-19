@@ -32,6 +32,16 @@ function counterApp (state, action) {
     }
     switch (action.type) {
         case 'ADD_HIT':
+            var collisions = state.hits.map(function (h) {
+              console.log('h', h);
+              return h._id === action.hit._id;
+            });
+            var collided = collisions.reduce(function (prev, curr) {
+              return prev || curr;
+            }, "");
+            if (collided) {
+              return state;
+            }
             return Object.assign({}, state, {
                  hits: state.hits.concat([action.hit])
             });
