@@ -4,7 +4,7 @@
   "description": "web interface for waybot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/state.js",
     "dbg": "DEBUG=wb* nodemon index.js",
     "watch": "watchify --debug src/*.js -t babelify --outfile public/bundle.js",
     "build": "browserify src/index.js -t babelify --outfile public/bundle.js",
@@ -30,6 +30,7 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "tape": "^4.4.0",
     "watchify": "^3.7.0"
   }
 }
