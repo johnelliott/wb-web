@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Redux = require('redux');
+var state = require('./state.js');
 var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
 var Sparkline = require('sparklines');
@@ -11,9 +11,9 @@ var freeze = require('deep-freeze');
  * React ================================================
  */
 const render = () => {
-    logReduxState();
+    state.logger();
     ReactDOM.render(
-        <Counter data={store.getState()} />,
+        <Counter data={state.store.getState()} />,
         document.getElementById('root')
     );
 };
@@ -69,69 +69,6 @@ const Line = React.createClass({
     return ( <span></span> );
   }
 });
-/*
- * Redux ================================================
- */
-function logReduxState () {
-  console.log('============= Redux state =============');
-  console.log(JSON.stringify(store.getState()));
-}
-/*
- * Redux action creators
- *
- * Use string literals for action types, no constants for actions
- * Use like: dispatch(addhit(hit));
- */
-// TODO consider Redux standard action: https://github.com/acdlite/flux-standard-action for later
-function addHit (hit) {
-  return {
-    type: 'ADD_HIT',
-    hit
-  };
-}
-
-const initialState = {
-    //TODO why does this need an empty object in it to work in the reducer?
-    hits: []
-};
-
-// Redux reducer
-function counterApp (state, action) {
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
-    switch (action.type) {
-        case 'ADD_HIT':
-            //            console.log('action hit', action.hit);
-            //            // guard against initial state
-            //            if (!state.hits.length) {
-            //              return Object.assign({}, state, {
-            //                hits: state.hits.concat([action.hit])
-            //              });
-            //            }
-            //            var newHit = false;
-            //            var updatedHits = state.hits.map(function(hit) {
-            //              console.log(' hit', hit);
-            //              if (hit._id === action.hit._id) {
-            //                return hit;
-            //              }
-            //              console.log(action.hit);
-            //              return action.hit;
-            //            });
-            //            console.log('updatedHits', updatedHits);
-            return Object.assign({}, state, {
-              hits: state.hits.concat([action.hit])
-            });
-        default:
-            return state;
-    }
-}
-
-
-// TESTS
-
-// Create Redux store
-var store = Redux.createStore(counterApp, initialState);
 
 // PouchDB stuff
 db.changes({
@@ -165,16 +102,17 @@ function updateUI (data) {
     });
 }
 
+// TODO should this go in the redux module?
 function sendToRedux (err, result) {
     if (err) {
         console.error(err);
     }
-    store.dispatch(addHit(result));
+    state.store.dispatch(state.addHit(result));
 }
 
 
 // Subscribe to events and update DOM
-store.subscribe(render);
+state.store.subscribe(render);
 // Do an inital render
 render();
 
