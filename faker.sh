@@ -5,9 +5,9 @@ TIME=3
 until [  $COUNTER -lt 1 ]; do
     let SPEED=$[($RANDOM % 100) +1 ]
     echo $RANDOM % 10
-    echo '{"time":' $COUNTER ',"speed":' $SPEED'}'
+    echo '{"time":' $COUNTER ',"speed":' $SPEED',"serial":'$SERIAL'}'
     # curl the thing we want
-    curl -sX POST localhost:5984/data -H "content-type: application/json" -d '{"time":"'$COUNTER'","speed":'$SPEED'}'
+    curl -sX POST localhost:5984/data -H "content-type: application/json" -d '{"time":"'$COUNTER'","speed":'$SPEED',"serialNumber":'$SERIAL'}'
     let COUNTER-=1
     sleep $TIME
 done
