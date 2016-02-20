@@ -81,3 +81,20 @@ test('add hit through combined reducers', function(t) {
   freeze(stateBefore);
   t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 1, hit: {yo: 'potle'}}), stateAfter);
 });
+
+test('add hit to intended counter', function(t) {
+  t.plan(1);
+  const stateBefore = [{ id: 1 }, { id: 2 }]
+  const stateAfter = [{ id: 1, hits: [{ yo: 'potle'}]}, { id: 2 }];
+  freeze(stateBefore);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 1, hit: {yo: 'potle'}}), stateAfter);
+});
+
+test('add hit to intended counter', function(t) {
+  t.plan(1);
+  const stateBefore = [{ id: 1 }, { id: 2 }]
+  const stateAfter = [{ id: 1 }, { id: 2 }];
+  freeze(stateBefore);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 'BOGUS_ID', hit: {yo: 'potle'}}), stateAfter);
+});
+// Wow, TDD actually makes a lot of sense when refactoring redux

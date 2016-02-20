@@ -32,6 +32,9 @@ const initialState = [];
 function counter (state, action) {
   switch (action.type) {
       case 'ADD_HIT':
+        if (state.id !== action.id) {
+          return state;
+        }
         if (!state.hits) {
           return Object.assign({}, state, {
                hits: [action.hit]
