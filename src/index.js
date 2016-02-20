@@ -11,9 +11,9 @@ var remoteCouch = 'http://localhost:5984/data';
  * React ================================================
  */
 const render = () => {
-    //state.logger();
+    state.logger();
     ReactDOM.render(
-        <Counter data={state.store.getState()} />,
+        <CounterList data={state.store.getState()} />,
         document.getElementById('root')
     );
 };
@@ -22,12 +22,28 @@ const render = () => {
  * React components
  */
 
+/* Counters container
+ * props: value <number>
+ */
+const CounterList = ({ data }) => {
+    return (
+      <div>
+        {data.map(counter => {
+          if (counter.hits) {
+            return <p><Counter data={counter} /></p>;
+          }
+          return <p className="subtitle">Counter {data.id}</p>
+        })}
+      </div>
+    );
+};
+
 /* Counter
  * props: value <number>
  */
 const Counter = ({ data }) => (
     <div>
-        <p className="subtitle">Counter 1</p>
+        <p className="subtitle">Counter {data.id}</p>
         <p>The speed <em>(mph)</em> of {data.hits.length} vehicles <Line data={data.hits} /> averages {
           data.hits.map(function(h) {
             return h.speed;
@@ -117,11 +133,14 @@ function sendToRedux (err, result) {
 }
 
 
+//manually add a counter
+state.store.dispatch(state.addCounter({id: 1}));
 // Subscribe to events and update DOM
 state.store.subscribe(render);
 // Do an inital render
 render();
 
+//state.store.dispatch(state.addCounter({id: 2}));
 // Init
 sync();
 fetchDocs();
