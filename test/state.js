@@ -30,3 +30,15 @@ test('don\'t add duplicate hit', function(t) {
   freeze(stateBefore);
   t.deepEqual(reducer(stateBefore, {type: 'ADD_HIT', hit: {_id: 'potle'}}), stateAfter);
 });
+
+test('don\'t add anything for bad action type', function(t) {
+  t.plan(1);
+  const stateBefore = {
+    hits: [{_id: 'potle'}]
+  };
+  const stateAfter = {
+    hits: [{_id: 'potle'}]
+  };
+  freeze(stateBefore);
+  t.deepEqual(reducer(stateBefore, {type: 'BAZ', hit: {_id: 'potle'}}), stateAfter);
+});
