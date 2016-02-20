@@ -38,6 +38,7 @@ const Counter = ({ data }) => (
         }.</p>
     </div>
 );
+
 /*
  * Sparkline
  * TODO make this work as part of react rendering instead of outside..
