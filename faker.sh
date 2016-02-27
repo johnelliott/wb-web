@@ -1,13 +1,16 @@
 #!/bin/bash
+# Be counter serial 10 unless specified
+COUNTERSERIALNUMBER=${SERIAL:=10}
 # 4-8 hours
-COUNTER=14400
-TIME=3
-until [  $COUNTER -lt 1 ]; do
+TIMEOUT=14400
+until [  $TIMEOUT -lt 1 ]; do
+    # speeds ~1-100
     let SPEED=$[($RANDOM % 100) +1 ]
-    echo $RANDOM % 10
-    echo '{"time":' $COUNTER ',"speed":' $SPEED',"serial":'$SERIAL'}'
+    # hit ever 1-5 seconds
+    let TIMETONEXT=$[($RANDOM % 4) +1 ]
+    echo '{"time":' $TIMEOUT ',"speed":' $SPEED',"serial":'$SERIAL'}'
     # curl the thing we want
-    curl -sX POST localhost:5984/data -H "content-type: application/json" -d '{"time":"'$COUNTER'","speed":'$SPEED',"serialNumber":'$SERIAL'}'
-    let COUNTER-=1
-    sleep $TIME
+    curl -sX POST localhost:5984/data -H "content-type: application/json" -d '{"time":"'$TIMEOUT'","speed":'$SPEED',"serialNumber":'$SERIAL'}'
+    let TIMEOUT-=1
+    sleep $TIMETONEXT
 done
