@@ -46,12 +46,12 @@ const Counter = ({ data }) => (
     <div>
         <p className="subtitle">Counter {data.serialNumber}</p>
         <p>The speed <em>(mph)</em> of {data.hits.length} vehicles <Line data={data.hits} /> averages {
-          data.hits.map(function(h) {
+          Math.round(data.hits.map(function(h) {
             return h.speed;
           })
           .reduce(function(a, b) {
             return a + b;
-          },0) / data.hits.length
+          },0) / data.hits.length)
         }.</p>
     </div>
 );
