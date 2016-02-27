@@ -57,17 +57,17 @@ test('don\'t add anything for bad action type', function(t) {
 test('add counter to empty state', function(t) {
   t.plan(1);
   const stateBefore = [];
-  const stateAfter = [{ id: 1 }];
+  const stateAfter = [{ serialNumber: 1 }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_COUNTER', counter: { id: 1 }}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_COUNTER', counter: { serialNumber: 1 }}), stateAfter);
 });
 
 test('add existing counter', function(t) {
   t.plan(1);
-  const stateBefore = [{ id: 1 }];
-  const stateAfter = [{ id: 1 }];
+  const stateBefore = [{ serialNumber: 1 }];
+  const stateAfter = [{ serialNumber: 1 }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_COUNTER', counter: { id: 1 }}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_COUNTER', counter: { serialNumber: 1 }}), stateAfter);
 });
 // TODO do more coutners top-level testing
 
@@ -76,25 +76,25 @@ test('add existing counter', function(t) {
  */
 test('add hit through combined reducers', function(t) {
   t.plan(1);
-  const stateBefore = [{ id: 1 }]
-  const stateAfter = [{ id: 1, hits: [{ yo: 'potle'}] }];
+  const stateBefore = [{ serialNumber: 1 }]
+  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle'}] }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 1, hit: {yo: 'potle'}}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', serialNumber: 1, hit: {yo: 'potle'}}), stateAfter);
 });
 
 test('add hit to intended counter', function(t) {
   t.plan(1);
-  const stateBefore = [{ id: 1 }, { id: 2 }]
-  const stateAfter = [{ id: 1, hits: [{ yo: 'potle'}]}, { id: 2 }];
+  const stateBefore = [{ serialNumber: 1 }, { serialNumber: 2 }]
+  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle'}]}, { serialNumber: 2 }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 1, hit: {yo: 'potle'}}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', serialNumber: 1, hit: {yo: 'potle'}}), stateAfter);
 });
 
-test('add hit to intended counter', function(t) {
+test('do not add hit to non-existant counter', function(t) {
   t.plan(1);
-  const stateBefore = [{ id: 1 }, { id: 2 }]
-  const stateAfter = [{ id: 1 }, { id: 2 }];
+  const stateBefore = [{ serialNumber: 1 }, { serialNumber: 2 }]
+  const stateAfter = [{ serialNumber: 1 }, { serialNumber: 2 }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', id: 'BOGUS_ID', hit: {yo: 'potle'}}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', serialNumber: 'BOGUS_serialNumber', hit: {yo: 'potle'}}), stateAfter);
 });
 // Wow, TDD actually makes a lot of sense when refactoring redux

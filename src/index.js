@@ -30,9 +30,10 @@ const CounterList = ({ data }) => {
       <div>
         {data.map(counter => {
           if (counter.hits) {
-            return <p><Counter data={counter} /></p>;
+            return <Counter key={counter.serialNumber} data={counter} />;
           }
-          return <p className="subtitle">Counter {data.id}</p>
+          // if there are no hits just render the blank counter
+          return <p key={counter.serialNumber} className="subtitle">Counter {counter.serialNumber}</p>
         })}
       </div>
     );
@@ -43,7 +44,7 @@ const CounterList = ({ data }) => {
  */
 const Counter = ({ data }) => (
     <div>
-        <p className="subtitle">Counter {data.id}</p>
+        <p className="subtitle">Counter {data.serialNumber}</p>
         <p>The speed <em>(mph)</em> of {data.hits.length} vehicles <Line data={data.hits} /> averages {
           data.hits.map(function(h) {
             return h.speed;
@@ -134,13 +135,13 @@ function sendToRedux (err, result) {
 
 
 //manually add a counter
-state.store.dispatch(state.addCounter({id: 1}));
+state.store.dispatch(state.addCounter({serialNumber: 1}));
 // Subscribe to events and update DOM
 state.store.subscribe(render);
 // Do an inital render
 render();
 
-//state.store.dispatch(state.addCounter({id: 2}));
+state.store.dispatch(state.addCounter({serialNumber: 2}));
 // Init
 sync();
 fetchDocs();

@@ -32,7 +32,7 @@ const initialState = [];
 function counter (state, action) {
   switch (action.type) {
       case 'ADD_HIT':
-        if (state.id !== action.id) {
+        if (state.serialNumber !== action.hit.serialNumber) {
           return state;
         }
         if (!state.hits) {
@@ -67,7 +67,7 @@ function counters (state, action) {
       case 'ADD_COUNTER':
         var collisions = state.map(function (c) {
           //console.log('c', c);
-          return c.id === action.counter.id;
+          return c.serialNumber === action.counter.serialNumber;
         });
         console.log('what is collisions', collisions);
         var matched = collisions.reduce(function (prev, curr) {
