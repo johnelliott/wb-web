@@ -128,20 +128,16 @@ function sendToRedux (err, result) {
         console.error(err);
     }
     //TODO this is just temp because safari sucks...
-    if (!result.hit) {
-      state.store.dispatch(state.addHit(result));
-    }
+    state.store.dispatch(state.addCounter(result));
+    state.store.dispatch(state.addHit(result));
 }
 
 
-//manually add a counter
-state.store.dispatch(state.addCounter({serialNumber: 1}));
 // Subscribe to events and update DOM
 state.store.subscribe(render);
 // Do an inital render
 render();
 
-state.store.dispatch(state.addCounter({serialNumber: 2}));
 // Init
 sync();
 fetchDocs();
