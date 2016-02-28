@@ -1,6 +1,13 @@
 #!/bin/bash
 # Be counter serial 10 unless specified
-COUNTERSERIALNUMBER=${SERIAL:=10}
+if [ ! -n "$1" ]
+then
+  echo "Usage: `basename $0` counterSerialNumber, defaults to serial 2"
+  # Don't exit because we'll default to serial number 2
+  #exit 1
+fi
+# default to serial number 2
+SERIAL=${1:-2}
 # 4-8 hours
 TIMEOUT=14400
 until [  $TIMEOUT -lt 1 ]; do
