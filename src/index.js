@@ -4,7 +4,10 @@ var state = require('./state.js');
 var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
 var Sparkline = require('sparklines');
-var remoteCouch = 'http://localhost:5984/data';
+// TODO such bad, very hack....?
+var remoteCouch = new PouchDB(document.URL + 'api');
+PouchDB.debug.enable('*');
+window.PouchDB = PouchDB;
 //var freeze = require('deep-freeze');
 
 /*
@@ -98,7 +101,6 @@ db.changes({
 function sync () {
     console.log('syncing');
     var opts = {live: true};
-    //db.replicate.to(remoteCouch, opts, syncErrorLogger);
     db.replicate.from(remoteCouch, opts, function syncErrorLogger (err) {
           console.log('syncing error ' + err);
     });
