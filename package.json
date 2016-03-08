@@ -7,6 +7,7 @@
     "test": "node test/state.js",
     "dbg": "DEBUG=wb* nodemon index.js",
     "watch": "watchify --debug src/*.js -t babelify --outfile public/bundle.js",
+    "twoFakeCounters": "echo 88 89 |xargs -P 2 -n 1 ./faker.sh",
     "build": "browserify src/index.js -t babelify --outfile public/bundle.js",
     "start": "node index.js"
   },
