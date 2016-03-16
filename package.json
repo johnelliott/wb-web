@@ -21,6 +21,7 @@
     "debug": "^2.2.0",
     "deep-freeze": "0.0.1",
     "ecstatic": "^1.4.0",
+    "material-design-lite": "^1.1.2",
     "pouchdb": "^5.2.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
