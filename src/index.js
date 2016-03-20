@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var state = require('./state.js');
 var PouchDB = require('pouchdb');
 var db = new PouchDB('hits');
-var Sparkline = require('sparklines');
+var Line = require('./line.js');
 // TODO such bad, very hack....?
 var remoteCouch = new PouchDB(document.URL + 'api');
 PouchDB.debug.enable('*');
@@ -36,7 +36,7 @@ const CounterList = ({ data }) => {
             return <Counter key={counter.serialNumber} data={counter} />;
           }
           // if there are no hits just render the blank counter
-          return <p key={counter.serialNumber} className="subtitle">Counter {counter.serialNumber}</p>
+          return <p key={counter.serialNumber} className="subtitle">Counter {counter.serialNumber}</p>;
         })}
       </div>
     );
@@ -58,38 +58,6 @@ const Counter = ({ data }) => (
         }.</p>
     </div>
 );
-
-/*
- * Sparkline
- * TODO make this work as part of react rendering instead of outside..
- */
-const Line = React.createClass({
-   draw: function(props) {
-    var lineData = props.data.map(function(point) {
-      return point.speed;
-    });
-    //console.log('lineData ' + lineData);
-    var node = ReactDOM.findDOMNode(this);
-    var line = new Sparkline(node, {width: 100, height: 20});
-    console.log('line', line);
-    line.draw(lineData);
-  },
-  componentDidMount: function() {
-    this.draw(this.props);
-  },
-  shouldComponentUpdate: function () {
-    return false;
-  },
-  componentWillReceiveProps: function(nextProps) {
-    //console.log('i will get props', nextProps);
-    if (this.props.data !== nextProps.data) {
-      this.draw(nextProps);
-    }
-  },
-  render: function() {
-    return ( <span></span> );
-  }
-});
 
 // PouchDB stuff
 db.changes({
