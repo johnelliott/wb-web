@@ -24,6 +24,6 @@ var server = http.createServer(function requestHandler (req, res) {
 })
 
 // Start server
-var port = process.env.PORT || 8080
-server.listen(port)
-debug('Server listening on http://localhost:' + port)
+var port = process.env.PORT || 8080;
+server.listen(port);
+debug('Server listening on ' + port);
