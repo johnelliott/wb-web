@@ -24,12 +24,12 @@ a img{
 }
 
 ::-moz-selection {
-  background-color: #6ab344;
+  background-color: rgb(66, 66, 66);
   color: #fff;
 }
 
 ::selection {
-  background-color: #6ab344;
+  background-color: rgb(66, 66, 66);
   color: #fff;
 }
 
@@ -118,7 +118,7 @@ a img{
   }
 
     .android-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid #8bc34a;
+      border-bottom: 4px solid #f3f3f3;
     }
 
   .android-search-box {
@@ -148,12 +148,12 @@ a img{
   }
 
   .android-drawer span.mdl-navigation__link.mdl-navigation__link {
-    color: #8bc34a;
+    color: #f3f3f3;
   }
 
   .android-drawer .mdl-layout-title {
     position: relative;
-    background: #6ab344;
+    background: rgb(66, 66, 66);
     height: 160px;
   }
 
@@ -164,17 +164,17 @@ a img{
 
 .android-be-together-section {
   position: relative;
-  height: 800px;
+  height: 425px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('images/slide01.jpg') center 30% no-repeat;
+  background: url('images/slide01.jpg') center 50% no-repeat;
   background-size: cover;
 }
 
 .logo-font {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   line-height: 1;
-  color: #767777;
+  color: #f3f3f3;
   font-weight: 500;
 }
 
@@ -193,9 +193,10 @@ a img{
   padding-top: 400px;
 }
 
+/* this won't be needed */
   .android-create-character a {
     text-decoration: none;
-    color: #767777;
+    color: #f3f3f3;
     font-weight: 300;
   }
 
@@ -321,11 +322,11 @@ a img{
 
 .android-link {
   text-decoration: none;
-  color: #8bc34a !important;
+  color: #f3f3f3 !important;
 }
 
   .android-link:hover {
-    color: #7cb342 !important;
+    color: rgb(66, 66, 66) !important;
   }
 
   .android-link .material-icons {
@@ -382,7 +383,8 @@ a img{
     padding-bottom: 24px;
   }
 
-.android-card-container {
+.android-card-container div {
+  padding: 0.75em;
 }
 
   .android-card-container .mdl-card__media {
@@ -426,7 +428,7 @@ a img{
 }
 
   .android-footer a:hover {
-    color: #8bc34a;
+    color: #f3f3f3;
   }
 
   .android-footer .mdl-mega-footer--top-section::after {

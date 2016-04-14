@@ -30,10 +30,12 @@
     "sparklines": "^1.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "eslint": "^1.10.3",
     "tape": "^4.4.0",
     "watchify": "^3.7.0"
   }
