@@ -52,10 +52,16 @@
         <a name="top"></a>
         <div class="android-be-together-section mdl-typography--text-center">
           <div class="logo-font android-slogan">Waybot counter</div>
-          <div class="logo-font android-sub-slogan">home-brew traffic counter with cledge data pipeline</div>
+          <div class="logo-font android-sub-slogan">A fun way to count bicycle traffic</div>
         </div>
-              <div class="android-more-section">
+        <div class="android-more-section">
           <div class="android-section-title mdl-typography--display-1-color-contrast">The Counter</div>
+          <div class="mdl-layout__content">
+            <p>Waybot is a home-brew traffic counter and cledge apps to support live data.</p>
+            <p>The counter counts bicycles and cars rolling over a tube using an analog pressure sensor. An algorithm on the Arduino processes pressure readings and timing to determine if a vehicle passed over the tube. In that case, the counter sends data for that event over the Arduino serial port to a waiting Raspberry Pi. The Pi runs a Node.js app to send the data to another Node app running on Amazon EC2. This EC2 instance stores the data in a database and syncs with connected clients viewing the app. As additional traffic passes over the counter, new data flows from the analog sensor to the web interface.</p>
+            <p>Currently there's live data rendering via a React/Redux app in this page. Further work could include interacting with the counter from the web interface.</p>
+
+          </div>
           <div id="root"></div>
         </div>
 
