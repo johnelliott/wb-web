@@ -1,6 +1,6 @@
 var PouchDB = require('pouchdb');
 var state = require('./state.js');
-var db = new PouchDB('hits');
+var db = new PouchDB('hits'); // Initialize and start the database
 // TODO such bad, very hack....?
 var remoteCouch = new PouchDB(document.URL + 'api');
 PouchDB.debug.enable('*');

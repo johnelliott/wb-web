@@ -25,11 +25,11 @@ exports.CounterList = ({ data }) => {
  */
 const Counter = ({ data }) => (
     <div className="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+      <h4 className="mdl-card__title">Counter {data.serialNumber}</h4>
+
       <p class="mdl-card__media">
         <Line data={data.hits} />
       </p>
-
-      <h4 className="mdl-card__title">Counter {data.serialNumber}</h4>
 
       <p class="mdl-card__supporting-text">
         The speed <em>(mph)</em> of {data.hits.length} vehicles averages {

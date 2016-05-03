@@ -9,7 +9,7 @@ var state = require('./state.js');
  * React ================================================
  */
 const render = () => {
-    state.logger();
+  //state.logger();
     ReactDOM.render(
         <CounterList className="android-card-container mdl-grid" data={state.store.getState()} />,
         document.getElementById('root')

@@ -69,7 +69,7 @@ function counters (state, action) {
           //console.log('c', c);
           return c.serialNumber === action.counter.serialNumber;
         });
-        console.log('what is collisions', collisions);
+        //console.log('what is collisions', collisions);
         var matched = collisions.reduce(function (prev, curr) {
           return prev || curr;
         }, "");
