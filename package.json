@@ -4,11 +4,12 @@
   "description": "web interface for waybot",
   "main": "index.js",
   "scripts": {
-    "dbg": "DEBUG=wb* nodemon index.js",
-    "twoFakeCounters": "echo 88 89 |xargs -P 2 -n 1 ./faker.sh",
-    "watch": "watchify --debug src/*.js -t babelify --outfile public/bundle.js",
-    "build": "browserify src/index.js -t babelify --outfile public/bundle.js",
-    "comp": "gzip -k -f public/*/*/*.{ttf,eot,svg} public/*/*.png public/*.{js,css}",
+    "two-fake-counters": "echo 88 89 |xargs -P 2 -n 1 ./faker.sh",
+    "dbg": "DEBUG=wb* nodemon --ignore src/ --ignore public/*.js",
+    "watch": "watchify --debug src/index.js --outfile public/bundle.js -t babelify",
+    "build": "npm run build-client && npm run compress-static",
+    "build-client": "browserify src/index.js--outfile public/bundle.js -t babelify ",
+    "compress-static": "gzip -k -f public/*/*/*.{ttf,svg} public/*/*.png public/*.{js,css}",
     "test": "node test/state.js",
     "start": "node index.js"
   },
@@ -29,7 +30,8 @@
     "sparklines": "^1.0.0"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.5.0",
+    "babel-eslint": "^5.0.0",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
