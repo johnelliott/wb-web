@@ -8,13 +8,13 @@ var Line = require('./line.js');
  */
 exports.CounterList = ({ data }) => {
     return (
-      <div className="android-card-container mdl-grid">
+      <div>
         {data.map(counter => {
           if (counter.hits) {
-            return <Counter className="demo-card-square mdl-card mdl-shadow--2dp" key={counter.serialNumber} data={counter} />;
+            return <Counter key={counter.serialNumber} data={counter} />;
           }
           // if there are no hits just render the blank counter
-          return <p className="demo-card-square mdl-card mdl-shadow--2dp" key={counter.serialNumber}>Counter {counter.serialNumber}</p>;
+          return <p key={counter.serialNumber}>Counter {counter.serialNumber}</p>;
         })}
       </div>
     );
@@ -24,14 +24,12 @@ exports.CounterList = ({ data }) => {
  * props: value <number>
  */
 const Counter = ({ data }) => (
-    <div className="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
-      <p class="mdl-card__media">
+    <div>
+      <h2>Counter {data.serialNumber}</h2>
+      <p>
         <Line data={data.hits} />
       </p>
-
-      <h4 className="mdl-card__title">Counter {data.serialNumber}</h4>
-
-      <p class="mdl-card__supporting-text">
+      <p>
         The speed <em>(mph)</em> of {data.hits.length} vehicles averages {
           Math.round(data.hits.map(function(h) {
             return h.speed;
@@ -41,6 +39,5 @@ const Counter = ({ data }) => (
           },0) / data.hits.length)
         }.
       </p>
-
     </div>
 );
