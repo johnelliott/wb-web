@@ -7,7 +7,7 @@ var request = require('request')
 // Middlewares
 var staticMiddleware = ecstatic({
   root: __dirname + '/public',
-  gzip: process.env.NODE_ENV==='production' ? true : false
+  gzip: process.env.NODE_ENV==='production' ? true : false // ecstatic will serve gz versions, otherwise fall back
 })
 
 // Server
