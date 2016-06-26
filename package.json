@@ -7,8 +7,9 @@
     "two-fake-counters": "echo 88 89 |xargs -P 2 -n 1 ./faker.sh",
     "dbg": "DEBUG=wb* nodemon --ignore src/ --ignore public/*.js",
     "watch": "watchify --debug src/index.js --outfile public/bundle.js -t babelify",
-    "build": "npm run build-client && npm run compress-static",
-    "build-client": "browserify src/index.js -t babelify | ./node_modules/uglify-js/bin/uglifyjs > public/bundle.js",
+    "build": "npm run build-client",
+    "build-client": "browserify src/index.js --outfile public/bundle.js -t babelify",
+    "build-client-uglified": "browserify src/index.js -t babelify | ./node_modules/uglify-js/bin/uglifyjs > public/bundle.js",
     "compress-static": "gzip -k -f public/*/*/*.{ttf,svg} public/*/*.png public/*.{js,css}",
     "test": "node test/state.js",
     "start": "node index.js"

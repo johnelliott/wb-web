@@ -25,7 +25,7 @@ exports.CounterList = ({ data }) => {
  */
 const Counter = ({ data }) => (
     <div>
-      <h2>Counter {data.serialNumber}</h2>
+      <p>Counter {data.serialNumber}</p>
       <p>
         <Line data={data.hits} />
       </p>
