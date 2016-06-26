@@ -8,7 +8,7 @@
     "dbg": "DEBUG=wb* nodemon --ignore src/ --ignore public/*.js",
     "watch": "watchify --debug src/index.js --outfile public/bundle.js -t babelify",
     "build": "npm run build-client && npm run compress-static",
-    "build-client": "browserify src/index.js--outfile public/bundle.js -t babelify ",
+    "build-client": "browserify src/index.js -t babelify | ./node_modules/uglify-js/bin/uglifyjs > public/bundle.js",
     "compress-static": "gzip -k -f public/*/*/*.{ttf,svg} public/*/*.png public/*.{js,css}",
     "test": "node test/state.js",
     "start": "node index.js"
@@ -36,6 +36,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "tape": "^4.4.0",
+    "uglify-js": "^2.6.4",
     "watchify": "^3.7.0"
   }
 }
