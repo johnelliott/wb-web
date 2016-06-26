@@ -8,9 +8,43 @@
 
 <body>
   <article>
-    <h1>Waybot</h1>
+    <h1>Waybot Traffic Counter</h1>
     <section>
+      <h2>The Project</h2>
+      <p>Waybot is a home-brew traffic counter. The counter can be used with on-board memory or monitored live with a serial cable. A network-edge server and cloud server enable real-time monitoring in a web browser. The servers and apps are configured and deployed via Ansible scripts.</p>
+      <h2>How it works</h2>
+      <p><label for="wb-figure-1" class="margin-toggle">⊕</label>
+      <input type="checkbox" id="wb-figure-1" class="margin-toggle"><span class="marginnote"> <img src="images/1-counter.jpg" alt="Image of a Rhinoceros">The counter: waterpoof case and coiled tube.</span>Bicycles and cars roll over a pneumatic tube connected to an analog pressure sensor. The Arduino samples the voltage drop of the sensor and determines if a vehicle passed over the tube using an algorithm and sends data formatted as JSON for vehicle hits over the Arduino serial cable.</p>
+      <p><label for="wb-figure-2" class="margin-toggle">⊕</label>
+      <input type="checkbox" id="wb-figure-2" class="margin-toggle">
+      <span class="marginnote"> <img src="images/pi.jpg" alt="Image of a Rhinoceros">
+        The Raspberry Pi running <a href="https://github.com/johnelliott/wb-upload">wb-upload</a>. Wifi dongle with blue light connects to LAN.
+      </span>A Raspberry Pi acts as a bridge, taking the counter's JSON data from serial and making web requests to a Amazon EC2 server. This EC2 instance stores the data in a database and serves a web app that can sync with the hosted data.</p>
+    </section>
+    <section>
+      <h2>Demo</h2>
+      <p>Two sets of simulated store data on AWS:</p>
       <div id="root"></div>
+    </section>
+    <section>
+      <h2>Github links</h2>
+      <p><label for="wb-note" class="margin-toggle">⊕</label>Code for this project is on Github in four repsositories.
+      <input type="checkbox" id="wb-note" class="margin-toggle">
+      <span class="marginnote">
+        <a href="https://github.com/johnelliott">johnelliott</a> on Github<h3>
+      </span></p>
+      <h3><a href="https://github.com/johnelliott/wb-web">wb-web</a></h3>
+      <span>This page. A view of Waybot traffic counters using PouchDB, Redux, React</span>
+
+      <h3><a href="https://github.com/johnelliott/wb-upload">wb-upload</a></h3>
+      <span>Serial to HTTP bridge for Waybot traffic counter</span>
+
+      <h3><a href="https://github.com/johnelliott/wb-counter">wb-counter</a></h3>
+      <span>Arduino-based pneumatic traffic counter with local cache and JSON output over serial</span>
+
+      <h3><a href="https://github.com/johnelliott/wb-deploy">wb-deploy</a></h3>
+      <span>Bootstrap and deploy commits to AWS and Raspberry Pi using Ansible</span>
+
     </section>
   </article>
   <script src="bundle.js"></script>
