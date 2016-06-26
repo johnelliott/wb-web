@@ -1,10 +1,9 @@
 var PouchDB = require('pouchdb');
 var state = require('./state.js');
 var db = new PouchDB('hits');
-// TODO such bad, very hack....?
-var remoteCouch = new PouchDB(document.URL + 'api');
+// TODO such bad, very hack....? YES document.url KILLED AN HOUR OF MY TIME
+var remoteCouch = new PouchDB('http://localhost:8080' + 'api');
 PouchDB.debug.enable('*');
-window.PouchDB = PouchDB;
 // PouchDB stuff
 db.changes({
     since: 'now',
@@ -47,7 +46,6 @@ function sendToRedux (err, result) {
     state.store.dispatch(state.addCounter(result));
     state.store.dispatch(state.addHit(result));
 }
-
 
 // Init
 sync();

@@ -3,17 +3,13 @@ var ReactDOM = require('react-dom');
 var CounterList = require('./counter.js').CounterList;
 var db = require('./db.js');
 var state = require('./state.js');
-//var freeze = require('deep-freeze');
 
-/*
- * React ================================================
- */
 const render = () => {
-    state.logger();
-    ReactDOM.render(
-        <CounterList className="android-card-container mdl-grid" data={state.store.getState()} />,
-        document.getElementById('root')
-    );
+  state.logger();
+  ReactDOM.render(
+    <CounterList data={state.store.getState()} />,
+    document.getElementById('root')
+  );
 };
 
 // Subscribe to events and update DOM

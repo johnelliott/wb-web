@@ -1,7 +1,5 @@
 var Redux = require('redux');
-/*
- * Redux ================================================
- */
+
 function logReduxState () {
   console.log('============= Redux state =============');
   console.log(JSON.stringify(store.getState()));
