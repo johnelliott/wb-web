@@ -77,17 +77,17 @@ test('add existing counter', function(t) {
 test('add hit through combined reducers', function(t) {
   t.plan(1);
   const stateBefore = [{ serialNumber: 1 }]
-  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle'}] }];
+  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle', serialNumber: 1}] }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', serialNumber: 1, hit: {yo: 'potle'}}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', hit: {yo: 'potle', serialNumber:1}}), stateAfter);
 });
 
 test('add hit to intended counter', function(t) {
   t.plan(1);
   const stateBefore = [{ serialNumber: 1 }, { serialNumber: 2 }]
-  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle'}]}, { serialNumber: 2 }];
+  const stateAfter = [{ serialNumber: 1, hits: [{ yo: 'potle', serialNumber: 1}]}, { serialNumber: 2 }];
   freeze(stateBefore);
-  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', serialNumber: 1, hit: {yo: 'potle'}}), stateAfter);
+  t.deepEqual(counters(stateBefore, {type: 'ADD_HIT', hit: {yo: 'potle', serialNumber: 1}}), stateAfter);
 });
 
 test('do not add hit to non-existant counter', function(t) {
