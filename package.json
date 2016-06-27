@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "two-fake-counters": "echo 88 89 |xargs -P 2 -n 1 ./faker.sh",
-    "dbg": "DEBUG=wb* nodemon --ignore src/ --ignore public/*.js",
+    "dbg": "DEBUG=wb* nodemon index.js --ignore src/ --ignore public/*.js",
     "watch": "watchify --debug src/index.js --outfile public/bundle.js -t babelify",
     "build": "npm run build-production",
     "build-client": "browserify src/index.js --outfile public/bundle.js -t babelify",

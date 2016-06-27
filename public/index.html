@@ -59,11 +59,11 @@
 </body>
 <script>
   if ('serviceWorker' in navigator) {
-    console.log('registering sw')
+    console.log('registering service worker')
     navigator.serviceWorker
     .register('service-worker.js')
     .then(function(){
-      console.log('sw registered')
+      console.log('service worker registered')
     })
   }
 </script>
