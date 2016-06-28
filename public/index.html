@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="#fffff8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="Shortcut Icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="tufte.css"/>
   <link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
@@ -22,10 +23,10 @@
       <p>Waybot is a home-brew traffic counter. The counter can be used with on-board memory or monitored live with a serial cable. A network-edge server and cloud server enable real-time monitoring in a web browser. The servers and apps are configured and deployed via Ansible scripts.</p>
       <h2>How it works</h2>
       <p><label for="wb-figure-1" class="margin-toggle">⊕</label>
-      <input type="checkbox" id="wb-figure-1" class="margin-toggle"><span class="marginnote"> <img src="images/1-counter.jpg" alt="Image of a Rhinoceros">The counter: waterpoof case and coiled tube.</span>Bicycles and cars roll over a pneumatic tube connected to an analog pressure sensor. The Arduino samples the voltage drop of the sensor and determines if a vehicle passed over the tube using an algorithm and sends data formatted as JSON for vehicle hits over the Arduino serial cable.</p>
+      <input type="checkbox" id="wb-figure-1" class="margin-toggle"><span class="marginnote"> <img src="images/1-counter.jpg" alt="Image of a plastic box with plastic bube">The counter: waterpoof case and coiled tube.</span>Bicycles and cars roll over a pneumatic tube connected to an analog pressure sensor. The Arduino samples the voltage drop of the sensor and determines if a vehicle passed over the tube using an algorithm and sends data formatted as JSON for vehicle hits over the Arduino serial cable.</p>
       <p><label for="wb-figure-2" class="margin-toggle">⊕</label>
       <input type="checkbox" id="wb-figure-2" class="margin-toggle">
-      <span class="marginnote"> <img src="images/pi.jpg" alt="Image of a Rhinoceros">
+      <span class="marginnote"> <img src="images/pi.jpg" alt="Image of a chip with wifi dongle">
         The Raspberry Pi running <a href="https://github.com/johnelliott/wb-upload">wb-upload</a>. Wifi dongle with blue light connects to LAN.
       </span>A Raspberry Pi acts as a bridge, taking the counter's JSON data from serial and making web requests to a Amazon EC2 server. This EC2 instance stores the data in a database and serves a web app that can sync with the hosted data.</p>
     </section>
@@ -42,7 +43,7 @@
         <a href="https://github.com/johnelliott">johnelliott</a> on Github<h3>
       </span></p>
       <h3><a href="https://github.com/johnelliott/wb-web">wb-web</a></h3>
-      <span>This page. A view of Waybot traffic counters using PouchDB, Redux, React</span>
+      <span>This page. A view of Waybot traffic counters using PouchDB, Redux, React, service worker.</span>
 
       <h3><a href="https://github.com/johnelliott/wb-upload">wb-upload</a></h3>
       <span>Serial to HTTP bridge for Waybot traffic counter</span>
