@@ -11,7 +11,7 @@ var certPath = process.env.CERTPATH || __dirname + '/certs'
 // HTTPS setup
 var serverOptions = {
   cert: fs.readFileSync(fs.readlinkSync(certPath + '/cert.pem')),
-  ca: fs.readFileSync(fs.readlinkSync(certPath + '/chain.pem')),
+  ca: process.NODE_ENV==='production' ? fs.readFileSync(fs.readlinkSync(certPath + '/chain.pem')) : undefined,
   key: fs.readFileSync(fs.readlinkSync(certPath + '/privkey.pem'))
 }
 
