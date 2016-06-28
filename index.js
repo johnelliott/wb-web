@@ -10,8 +10,9 @@ var certPath = process.env.CERTPATH || __dirname + '/certs'
 
 // HTTPS setup
 var serverOptions = {
-  cert: fs.readFileSync(fs.readlinkSync(certPath + '/self.crt')),
-  key: fs.readFileSync(fs.readlinkSync(certPath + '/self.key'))
+  cert: fs.readFileSync(fs.readlinkSync(certPath + '/cert.pem')),
+  ca: fs.readFileSync(fs.readlinkSync(certPath + '/chain.pem')),
+  key: fs.readFileSync(fs.readlinkSync(certPath + '/privkey.pem'))
 }
 
 // Middlewares
