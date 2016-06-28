@@ -2,7 +2,8 @@ var PouchDB = require('pouchdb');
 var state = require('./state.js');
 var db = new PouchDB('hits');
 // TODO such bad, very hack....? YES document.url KILLED AN HOUR OF MY TIME
-var remoteCouch = new PouchDB(document.url+ 'api');
+var remoteHost = document.URL + 'api'
+var remoteCouch = new PouchDB(remoteHost);
 PouchDB.debug.enable('*');
 // PouchDB stuff
 db.changes({
