@@ -1,9 +1,13 @@
 var debug = require('debug')('wb-web:index')
 var fs = require('fs')
+var http = require('http')
 var https = require('https') // TODO use spdy, baby pouchdb for now...
 var url = require('url')
 var ecstatic = require('ecstatic')
 var request = require('request')
+
+var httpPort = process.env.REDIRECT_PORT || 8081
+var httpsPort = process.env.PORT || 8080
 
 // CERTPATH handy to override in development
 var certPath = process.env.CERTPATH || __dirname + '/certs'
@@ -21,7 +25,6 @@ var staticMiddleware = ecstatic({
   gzip: process.env.NODE_ENV === 'production' ? true : false // ecstatic will serve gz versions, otherwise fall back
 })
 
-// TODO redirect http to https
 // Server
 var server = https.createServer(serverOptions, function requestHandler (req, res) {
   if (req.url.match(/\/api/)) {
@@ -35,6 +38,14 @@ var server = https.createServer(serverOptions, function requestHandler (req, res
   }
 })
 
-var port = process.env.PORT || 8080
-server.listen(port)
-debug('Server listening on https://localhost:' + port)
+// Redirect http to https
+var redirectServer = http.createServer(function (req, res) {
+  const redirectUrl = `https://${req.headers.host.split(':')[0]}:${httpsPort}${req.url}`
+  res.writeHead(301, { "Location": redirectUrl })
+  res.end()
+})
+
+server.listen(httpsPort)
+redirectServer.listen(httpPort)
+debug('Server listening on https://localhost:' + httpsPort)
+debug('Reditecting from  http://localhost:' + httpPort)
