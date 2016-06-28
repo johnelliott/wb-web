@@ -11,7 +11,7 @@
     "build-client": "browserify src/index.js --outfile public/bundle.js -t babelify",
     "build-client-uglified": "browserify src/index.js -t babelify | ./node_modules/uglify-js/bin/uglifyjs > public/bundle.js",
     "build-production": "npm run build-client-uglified && npm run compress-assets",
-    "compress-assets": "gzip -kf public/*.js && gzip -kf public/*.css && gzip -kf public/*/*.png && gzip -kf public/*/*/*.svg && gzip -kf public/*/*/*.ttf",
+    "compress-assets": "gzip -kf public/*.js && gzip -kf public/*.css && gzip -kf public/*/*.jpg && gzip -kf public/*/*/*.svg && gzip -kf public/*/*/*.ttf",
     "test": "node test/state.js",
     "start": "node index.js"
   },
