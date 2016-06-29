@@ -28,7 +28,9 @@ self.addEventListener('install', function(e) {
         '/images/touch-icon-ipad-retina.png',
         '/images/touch-icon-ipad.png',
         '/images/touch-icon-iphone-retina.png',
-        '/images/touch-icon-iphone.png'
+        '/images/touch-icon-iphone.png',
+        '/et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff',
+        '/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff'
       ])
     })
   )
