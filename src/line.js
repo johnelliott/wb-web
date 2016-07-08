@@ -13,7 +13,7 @@ module.exports = React.createClass({
     //console.log('lineData ' + lineData);
     var node = ReactDOM.findDOMNode(this);
     var line = new Sparkline(node, {width: 100, height: 20});
-    console.log('line', line);
+    //console.log('line', line);
     line.draw(lineData);
   },
   componentDidMount: function() {

@@ -1,3 +1,4 @@
+/* eslint-env serviceworker */
 // TODO move this file to ../src/ and update browserify to put this in place
 
 // TODO automate versioning
@@ -5,8 +6,8 @@ var version = 1
 var cacheItems = [
   '/',
   '/index.html',
-  //'/?homescreen=1',
-  //'/index.html?homescreen=1',
+  // '/?homescreen=1',
+  // '/index.html?homescreen=1',
   '/tufte.css',
   '/bundle.js',
   '/manifest.json',
@@ -25,29 +26,29 @@ var cacheItems = [
   '/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff'
 ]
 
-self.addEventListener('install', function(e) {
-	self.skipWaiting()
+self.addEventListener('install', function (e) {
+  self.skipWaiting()
 
   console.log('service worker installing')
   e.waitUntil(
-    caches.open(version + 'waybot-web').then(function cacheOpener(cache) {
+    caches.open(version + 'waybot-web').then(function cacheOpener (cache) {
       console.log('cache opened', cache)
       return cache.addAll(cacheItems)
     })
   )
 })
 
-self.addEventListener('fetch', function fetcher(event) {
-  //console.log('fetch event', event.request.url)
+self.addEventListener('fetch', function fetchHandler (event) {
+  // console.log('fetch event', event.request.url)
   event.respondWith(
-    caches.match(event.request).then(function(response) {
-      //console.log('SW response', response ? response : 'response is undefined?!')
+    caches.match(event.request).then(function (response) {
+      // console.log('SW response', response ? response : 'response is undefined?!')
       return response || fetch(event.request)
     })
- )
+  )
 })
 
-self.addEventListener('activate', function activator(event) {
+self.addEventListener('activate', function activator (event) {
   console.log('servie worker Activate even in progress:', event)
   // MDN sez: It is only activated when there are no longer any pages loaded
   // that are still using the old service worker. As soon as there are no
@@ -59,7 +60,7 @@ self.addEventListener('activate', function activator(event) {
       return Promise.all(
         keys.map(function (key) {
           console.log('service worker deleting a key ' + key)
-          if(!key.startsWith(version)) {
+          if (!key.startsWith(version)) {
             // return promise fulfilled when cache with this prefix is deleted
             return caches.delete(key)
           }
@@ -70,4 +71,3 @@ self.addEventListener('activate', function activator(event) {
     })
   )
 })
-

@@ -5,7 +5,7 @@ var db = require('./db.js');
 var state = require('./state.js');
 
 const render = () => {
-  state.logger();
+  //state.logger();
   ReactDOM.render(
     <CounterList data={state.store.getState()} />,
     document.getElementById('root')
