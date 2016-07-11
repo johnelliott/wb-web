@@ -1,6 +1,6 @@
-# Waybot Web 📈
+# [Waybot Web 📈](https://waybot.primitivemachine.com)
 
-A web app to monitor sensor data form [Waybot traffic counter](https://github.com/johnelliott/wb-counter).
+A web app to monitor sensor data form [Waybot traffic counter](https://github.com/johnelliott/wb-counter). See it live [here](https://waybot.primitivemachine.com).
 
 ### About
 This app tries to load fast by using small assets, compression and some initial markup and CSS before the react app starts. A service worker caches assets on supported clients.
@@ -9,7 +9,7 @@ This app tries to load fast by using small assets, compression and some initial 
 ![diagram of waybot system](https://github.com/johnelliott/wb-web/blob/master/2016-system.jpeg "Waybot system 2016")
 
 ### Origins
-This app started as a way to experiment with node, websockets and chart libraries running  and ran locally with the counter connecting directly to the server process. Later I re-did most of the code to use PouchDB, redux and react on the client and deploy it to a cloud server. This required a serial-http bridge—[wb-upload](https://github.com/johnelliott/wb-upload)—to bring the data to the server.
+This app started as a way to experiment with node, websockets and chart libraries running  and ran locally with the counter connecting directly to the server process. Later I re-did most of the code to use PouchDB, redux and react on the client and deployed it to a cloud server. This required a serial-http bridge—[wb-upload](https://github.com/johnelliott/wb-upload)—to bring the data to the server.
 
 ## Development
 - CouchDB is required for local development.
